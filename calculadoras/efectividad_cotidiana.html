@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora de Efectividad en la vida cotidiana</title>
+    <style>
+        body {
+            font-family: sans-serif;
+        }
+
+        .container {
+            width: 500px;
+            margin: 0 auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        input[type="number"],
+        select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            box-sizing: border-box;
+        }
+
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            cursor: pointer;
+        }
+
+        .resultado {
+            margin-top: 20px;
+            border: 1px solid #ccc;
+            padding: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Calculadora de Efectividad</h1>
+
+        <form id="formulario">
+            <label for="realizados">Logros alcanzados:</label>
+            <input type="number" id="realizados" name="realizados" min="0" required>
+
+            <label for="total">Total de objetivos:</label>
+            <input type="number" id="total" name="total" min="1" required>
+
+            <button type="submit">Calcular</button>
+        </form>
+
+        <div class="resultado" id="resultado"></div>
+    </div>
+
+    <script>
+        const formulario = document.getElementById('formulario');
+        const resultado = document.getElementById('resultado');
+
+        formulario.addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            const realizados = parseFloat(document.getElementById('realizados').value);
+            const total = parseFloat(document.getElementById('total').value);
+
+            if (realizados > total) {
+                alert('El número de logros alcanzados no puede ser mayor que el número total de objetivos.');
+                return;
+            }
+
+            const efectividad = (realizados / total) * 100;
+
+            resultado.innerHTML = `
+                <p>Efectividad: ${efectividad.toFixed(2)}%</p>
+            `;
+        });
+    </script>
+</body>
+</html>

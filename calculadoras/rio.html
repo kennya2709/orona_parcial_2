@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora de Retorno de Inversión</title>
+    <style>
+        body {
+            font-family: sans-serif;
+        }
+
+        .container {
+            width: 500px;
+            margin: 0 auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        input[type="number"],
+        select {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+        }
+
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            cursor: pointer;
+        }
+
+        .resultado {
+            font-weight: bold;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Calculadora de Retorno de Inversión</h1>
+
+        <form id="formulario">
+            <label for="inversion">Inversión:</label>
+            <input type="number" id="inversion" name="inversion" min="0" required>
+
+            <label for="beneficio">Beneficio:</label>
+            <input type="number" id="beneficio" name="beneficio" min="0" required>
+
+            <button type="submit">Calcular ROI</button>
+        </form>
+
+        <div class="resultado" id="resultado"></div>
+    </div>
+
+    <script>
+        const formulario = document.getElementById('formulario');
+        const resultado = document.getElementById('resultado');
+
+        formulario.addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            const inversion = parseFloat(document.getElementById('inversion').value);
+            const beneficio = parseFloat(document.getElementById('beneficio').value);
+
+            if (isNaN(inversion) || isNaN(beneficio)) {
+                resultado.textContent = 'Error: Ingrese valores numéricos válidos.';
+                return;
+            }
+
+            const roi = (beneficio - inversion) / inversion * 100;
+
+            if (roi >= 0) {
+                resultado.textContent = `ROI: ${roi.toFixed(2)}%`;
+            } else {
+                resultado.textContent = `ROI: -${(-roi).toFixed(2)}% (Pérdida)`;
+            }
+        });
+    </script>
+</body>
+</html>

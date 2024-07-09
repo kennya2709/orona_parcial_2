@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora de Efectividad a partir de Eficacia y Eficiencia</title>
+    <style>
+        body {
+            font-family: sans-serif;
+        }
+
+        .container {
+            width: 500px;
+            margin: 0 auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        input[type="number"],
+        select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            box-sizing: border-box;
+        }
+
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            cursor: pointer;
+        }
+
+        .resultado {
+            margin-top: 20px;
+            border: 1px solid #ccc;
+            padding: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Calculadora de Efectividad a partir de Eficacia y Eficiencia</h1>
+
+        <form id="formulario">
+            <label for="eficacia">Eficacia:</label>
+            <input type="number" id="eficacia" name="eficacia" min="0" max="100" step="0.01" required>
+
+            <label for="eficiencia">Eficiencia:</label>
+            <input type="number" id="eficiencia" name="eficiencia" min="0" max="100" step="0.01" required>
+
+            <button type="submit">Calcular</button>
+        </form>
+
+        <div class="resultado" id="resultado"></div>
+    </div>
+
+    <script>
+        const formulario = document.getElementById('formulario');
+        const resultado = document.getElementById('resultado');
+
+        formulario.addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            const eficacia = parseFloat(document.getElementById('eficacia').value);
+            const eficiencia = parseFloat(document.getElementById('eficiencia').value);
+
+            if (eficacia > 100 || eficiencia > 100) {
+                alert('Los valores de eficacia y eficiencia no pueden ser mayores que 100%.');
+                return;
+            }
+
+            const efectividad = (eficacia * eficiencia) / 100;
+
+            resultado.innerHTML = `
+                <p>Efectividad: ${efectividad.toFixed(2)}%</p>
+            `;
+        });
+    </script>
+</body>
+</html>

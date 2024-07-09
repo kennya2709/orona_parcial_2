@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora de Efectividad en la Producción</title>
+    <style>
+        body {
+            font-family: sans-serif;
+        }
+
+        .container {
+            width: 500px;
+            margin: 0 auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        input[type="number"],
+        select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            box-sizing: border-box;
+        }
+
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            cursor: pointer;
+        }
+
+        .resultado {
+            margin-top: 20px;
+            border: 1px solid #ccc;
+            padding: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Calculadora de Efectividad en la Producción</h1>
+
+        <form id="formulario">
+            <label for="unidades_producidas">Unidades producidas:</label>
+            <input type="number" id="unidades_producidas" name="unidades_producidas" min="0" required>
+
+            <label for="tiempo_planeado">Tiempo planeado:</label>
+            <input type="number" id="tiempo_planeado" name="tiempo_planeado" min="0" step="0.01" required>
+
+            <label for="tiempo_real">Tiempo real:</label>
+            <input type="number" id="tiempo_real" name="tiempo_real" min="0" step="0.01" required>
+
+            <button type="submit">Calcular</button>
+        </form>
+
+        <div class="resultado" id="resultado"></div>
+    </div>
+
+    <script>
+        const formulario = document.getElementById('formulario');
+        const resultado = document.getElementById('resultado');
+
+        formulario.addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            const unidades_producidas = parseFloat(document.getElementById('unidades_producidas').value);
+            const tiempo_planeado = parseFloat(document.getElementById('tiempo_planeado').value);
+            const tiempo_real = parseFloat(document.getElementById('tiempo_real').value);
+
+            if (tiempo_real <= 0) {
+                alert('El tiempo real no puede ser menor o igual a cero.');
+                return;
+            }
+
+            const eficiencia = (tiempo_planeado / tiempo_real) * 100;
+            const efectividad = (unidades_producidas / tiempo_planeado) * 100;
+
+            resultado.innerHTML = `
+                <p>Eficiencia: ${eficiencia.toFixed(2)}%</p>
+                <p>Efectividad: ${efectividad.toFixed(2)}%</p>
+            `;
+        });
+    </script>
+</body>
+</html>

@@ -1,62 +1,35 @@
 <?php
-$servername = "localhost";
-$username = "root";
-$password = "";
-$dbname = "logindb";
+session_start();
 
-// Crear conexión
-$conn = new mysqli($servername, $username, $password, $dbname);
+$valid_credentials = [
+    "ingreyeslara" => "Utd_2024",
+    "examen_parcial2" => "Voyporel100"
+];
 
-// Verificar conexión
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
-}
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    $username = $_POST['username'];
+    $password = $_POST['password'];
 
-$message = "";
-
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $user = $_POST['username'];
-    $pass = $_POST['password'];
-
-    // Validar datos de entrada
-    if (empty($user) || empty($pass)) {
-        $message = "Username and password are required.";
+    if (isset($valid_credentials[$username]) && $valid_credentials[$username] === $password) {
+        $_SESSION['loggedin'] = true;
+        header("Location: curris.html");
+        exit;
     } else {
-        // Preparar la consulta
-        $sql = "SELECT id, password FROM users WHERE username=?";
-        $stmt = $conn->prepare($sql);
-        $stmt->bind_param("s", $user);
-        $stmt->execute();
-        $stmt->store_result();
-
-        if ($stmt->num_rows > 0) {
-            $stmt->bind_result($id, $db_password);
-            $stmt->fetch();
-
-            if ($pass === $db_password) {
-                $message = "Login successful!";
-            } else {
-                $message = "Invalid password.";
-            }
-        } else {
-            $message = "No user found.";
-        }
-
-        $stmt->close();
+        $error_message = "Invalid credentials.";
     }
 }
-
-$conn->close();
 ?>
 
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
     <style>
         body {
             font-family: Arial, sans-serif;
-            background: linear-gradient(to right, #ffecd2, #fcb69f);
+            background-color: #f0f0f0;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -64,74 +37,66 @@ $conn->close();
             margin: 0;
         }
         .login-container {
-            background-color: rgba(255, 255, 255, 0.9);
-            padding: 30px;
-            border-radius: 15px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-            width: 350px;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 300px;
+        }
+        h2 {
             text-align: center;
+            color: #333;
         }
-        .login-container h2 {
-            margin-bottom: 20px;
-            color: #6a1b9a;
-            font-size: 24px;
+        form {
+            display: flex;
+            flex-direction: column;
         }
-        .login-container input[type="text"],
-        .login-container input[type="password"] {
-            width: calc(100% - 20px);
-            padding: 12px;
-            margin: 10px 0;
+        label {
+            margin-bottom: 8px;
+            color: #666;
+        }
+        input[type="text"],
+        input[type="password"] {
+            padding: 8px;
+            margin-bottom: 12px;
             border: 1px solid #ccc;
-            border-radius: 25px;
-            box-sizing: border-box;
-            text-align: center;
-            font-size: 16px;
-            background-color: #f3e5f5;
+            border-radius: 4px;
+            font-size: 14px;
         }
-        .login-container input[type="submit"] {
-            background-color: #81d4fa;
+        input[type="submit"] {
+            background-color: #951bae;
             color: white;
+            padding: 10px 15px;
             border: none;
-            padding: 12px 20px;
-            border-radius: 25px;
+            border-radius: 4px;
             cursor: pointer;
-            font-size: 16px;
-            transition: background-color 0.3s ease;
+            font-size: 14px;
         }
-        .login-container input[type="submit"]:hover {
-            background-color: #4fc3f7;
+        input[type="submit"]:hover {
+            background-color: #951bae;
         }
-        .alert {
-            padding: 10px;
-            margin: 10px 0;
-            border-radius: 5px;
-            font-size: 16px;
-        }
-        .alert-success {
-            background-color: #a5d6a7;
-            color: white;
-        }
-        .alert-error {
-            background-color: #ef9a9a;
-            color: white;
+        .error-message {
+            color: red;
+            text-align: center;
+            margin-bottom: 12px;
         }
     </style>
 </head>
 <body>
-
-<div class="login-container">
-    <h2>Login</h2>
-    <?php if ($message): ?>
-        <div class="alert <?php echo strpos($message, 'successful') !== false ? 'alert-success' : 'alert-error'; ?>">
-            <?php echo $message; ?>
-        </div>
-    <?php endif; ?>
-    <form method="post" action="">
-        <input type="text" name="username" placeholder="Username" autocomplete="username" required>
-        <input type="password" name="password" placeholder="Password" autocomplete="current-password" required>
-        <input type="submit" value="Login">
-    </form>
-</div>
-
+    <div class="login-container">
+        <h2>Login</h2>
+        <?php
+        if (isset($error_message)) {
+            echo "<p class='error-message'>$error_message</p>";
+        }
+        ?>
+        <form action="" method="post">
+            <label for="username">Username:</label>
+            <input type="text" id="username" name="username" required><br><br>
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" required><br><br>
+            <input type="submit" value="Login">
+        </form>
+    </div>
 </body>
 </html>

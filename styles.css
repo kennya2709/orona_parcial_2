@@ -1,0 +1,120 @@
+/* Importar la fuente de Google Fonts */
+
+
+body {
+    font-family: 'Roboto', sans-serif;
+    line-height: 1.6;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f9;
+    color: #333;
+}
+
+.container {
+    max-width: 800px;
+    margin: 20px auto;
+    padding: 20px;
+    background: white;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+}
+
+h1 {
+    color: #d426f7;
+    border-bottom: 3px solid #f4a9f7;
+    padding-bottom: 10px;
+    margin-bottom: 20px;
+    font-weight: 700;
+    text-align: center;
+}
+
+h2 {
+    color: #0165a4;
+    margin-top: 30px;
+    font-weight: 700;
+    border-left: 5px solid #a5e2f7;
+    padding-left: 10px;
+    background-color: #f0f7f4;
+    border-radius: 5px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+
+ul {
+    list-style-type: disc;
+    margin-left: 20px;
+    padding-left: 20px;
+}
+
+ul li {
+    margin-bottom: 10px;
+}
+
+p {
+    margin-bottom: 10px;
+    text-align: justify;
+}
+
+h3 {
+    margin-top: 20px;
+    color: #b06cff;
+    font-weight: 700;
+    border-bottom: 2px solid #bc96fd;
+    padding-bottom: 5px;
+}
+.image-container img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.student-section {
+    display: flex;
+    align-items: center;
+    margin-top: 20px;
+}
+
+.student-photo img {
+    max-width: 150px;
+    height: auto;
+    border-radius: 10px;
+    margin-right: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.student-cv a {
+    display: inline-block;
+    padding: 10px 20px;
+    color: white;
+    background-color: #dd7efa;
+    border-radius: 5px;
+    text-decoration: none;
+    font-weight: 700;
+}
+
+.student-cv a:hover {
+    background-color: #951bae;
+}
+.student-cvv a {
+    display: inline-block;
+    padding: 10px 20px;
+    color: white;
+    background-color: #73d8f9;
+    border-radius: 5px;
+    text-decoration: none;
+    font-weight: 700;
+}
+
+.student-cvv a:hover {
+    background-color: #0165a4;
+}
+
+.name{
+    color: #50a7de;
+    margin-top: 20px;
+    font-weight: 700;
+    border-bottom: 2px solid #50a7de;
+    padding-bottom: 5px;
+}
+
